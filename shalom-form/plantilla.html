@@ -5,36 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datos de envío Shalom</title>
 <meta name="description" content="Completa los datos para enviar tu pedido por Shalom.">
+<meta name="theme-color" content="#0b0d0f">
+<link rel="icon" href="logo-luxury.webp" type="image/webp">
 <style>
+  /* Colores de marca Luxury Skincar's: negro, verde neón, azul y plateado */
   :root{
-    --bg:#f4f1ec; --card:#ffffff; --ink:#1d1b18; --muted:#6b655c;
-    --line:#e3ddd3; --accent:#1f7a4d; --accent-ink:#ffffff; --accent-soft:#e6f3ec;
-    --warn:#b4231a; --warn-soft:#fdecea; --gold:#b8892f; --field:#fbfaf7;
-    --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+    --brand-black:#0b0d0f; --brand-green:#22d36b; --brand-blue:#1f6fe0; --brand-silver:#9aa4ad;
+    --bg:#eef1f4; --card:#ffffff; --ink:#111417; --muted:#5b6470;
+    --line:#d9dee4; --accent:#0f9d47; --accent-ink:#ffffff; --accent-soft:#e9f7ef; --accent-text:#0b6b31;
+    --warn:#c0261b; --warn-soft:#fdecea; --gold:#1f6fe0; --field:#f7f9fb;
+    --btn-bg:#111417; --btn-ink:#22d36b;
+    --shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px rgba(11,13,15,.10);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#141311; --card:#1d1c19; --ink:#f1ede6; --muted:#a59e93;
-      --line:#34312b; --accent:#3fb37a; --accent-ink:#0b1a12; --accent-soft:#1b2e24;
-      --warn:#ff7b6e; --warn-soft:#3a1f1c; --gold:#d8ad5a; --field:#181714;
-      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+      --bg:#07090a; --card:#13171a; --ink:#eef2f5; --muted:#9aa4ad;
+      --line:#2a3138; --accent:#22d36b; --accent-ink:#04210f; --accent-soft:#0f2a1b; --accent-text:#7ff0ad;
+      --warn:#ff7b6e; --warn-soft:#3a1f1c; --gold:#6ea8ff; --field:#0f1215;
+      --btn-bg:#22d36b; --btn-ink:#04210f;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.5);
     }
   }
   :root[data-theme="dark"]{
-    --bg:#141311; --card:#1d1c19; --ink:#f1ede6; --muted:#a59e93;
-    --line:#34312b; --accent:#3fb37a; --accent-ink:#0b1a12; --accent-soft:#1b2e24;
-    --warn:#ff7b6e; --warn-soft:#3a1f1c; --gold:#d8ad5a; --field:#181714;
+    --bg:#07090a; --card:#13171a; --ink:#eef2f5; --muted:#9aa4ad;
+    --line:#2a3138; --accent:#22d36b; --accent-ink:#04210f; --accent-soft:#0f2a1b; --accent-text:#7ff0ad;
+    --warn:#ff7b6e; --warn-soft:#3a1f1c; --gold:#6ea8ff; --field:#0f1215;
+    --btn-bg:#22d36b; --btn-ink:#04210f;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
   .wrap{max-width:560px;margin:0 auto;padding:24px 16px 48px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px 20px}
-  .hero{text-align:center;margin-bottom:20px}
-  .badge{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:var(--accent-soft);font-size:28px;margin-bottom:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:0 20px 24px;overflow:hidden}
+  /* Franja de marca: cabecera negra con logo y línea azul */
+  .hero{text-align:center;margin:0 -20px 22px;padding:22px 20px 20px;background:var(--brand-black);color:#fff;border-bottom:4px solid var(--brand-blue)}
+  .logo{display:block;width:96px;height:96px;margin:0 auto 10px;border-radius:50%;object-fit:cover}
+  .badge{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;border:2px solid var(--brand-green);font-size:26px;margin-bottom:8px}
   h1{font-size:1.5rem;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+  .hero h1{color:#fff}
   .lead{color:var(--muted);margin:0}
-  .order{display:inline-block;margin-top:10px;font-size:.85rem;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:2px 10px}
+  .hero .lead{color:var(--brand-silver)}
+  .hero .lead strong{color:var(--brand-green)}
+  .order{display:inline-block;margin-top:10px;font-size:.85rem;color:var(--brand-green);border:1px solid var(--brand-green);border-radius:999px;padding:2px 10px}
   form{display:grid;gap:16px;margin-top:8px}
   .field{display:grid;gap:6px}
   label{font-weight:600;font-size:.95rem}
@@ -54,7 +66,7 @@
   .links{display:flex;flex-wrap:wrap;gap:8px}
   .link-btn{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;text-decoration:none;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:6px 12px;font-weight:600}
   .link-btn:hover{background:var(--accent-soft)}
-  input.auto[readonly]{background:var(--accent-soft);border-style:dashed;cursor:default;font-weight:600}
+  input.auto[readonly]{background:var(--accent-soft);border-style:dashed;border-color:var(--accent);color:var(--accent-text);cursor:default;font-weight:600}
   .dni-status{font-size:.85rem;color:var(--muted);min-height:1.2em}
   .dni-status.ok{color:var(--accent)}
   .dni-status.warn{color:var(--gold)}
@@ -62,8 +74,9 @@
   .ag-info strong{color:var(--ink);display:block;font-size:.92rem}
   .ag-note{font-size:.85rem;color:var(--gold);margin:0}
   .notice{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:.92rem}
-  .btn{width:100%;font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px 16px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
-  .btn:hover{filter:brightness(1.05)}
+  .btn{width:100%;font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px 16px;cursor:pointer;background:var(--btn-bg);color:var(--btn-ink);border-bottom:3px solid var(--brand-blue)}
+  .btn:hover{filter:brightness(1.15)}
+  .btn.ghost{border-bottom-width:1.5px}
   .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
   .btn-row{display:grid;gap:10px}
   /* revisión */
@@ -86,7 +99,7 @@
     <!-- PASO 1: FORMULARIO -->
     <section id="step-form">
       <div class="hero">
-        <div class="badge" aria-hidden="true">✅</div>
+        <img class="logo" src="logo-luxury.webp" alt="Luxury Skincar's" width="96" height="96">
         <h1>¡Pago confirmado, mi rey!</h1>
         <p class="lead">Para enviar tu pedido por <strong>Shalom</strong>, completa estos datos.</p>
         <span id="orderTag" class="order hidden"></span>
@@ -171,9 +184,11 @@
 
     <!-- PASO 3: LISTO -->
     <section id="step-done" class="done">
-      <div class="badge" aria-hidden="true">🚛</div>
-      <h1>¡Gracias!</h1>
-      <p class="lead">Recibimos tus datos. Te avisaremos cuando tu pedido salga por Shalom.</p>
+      <div class="hero">
+        <img class="logo" src="logo-luxury.webp" alt="Luxury Skincar's" width="96" height="96">
+        <h1>¡Gracias!</h1>
+        <p class="lead">Recibimos tus datos. Te avisaremos cuando tu pedido salga por Shalom 🚛</p>
+      </div>
       <div class="btn-row" style="margin-top:20px">
         <button class="btn ghost" id="back" type="button">Volver a ver mis datos</button>
       </div>
