@@ -66,7 +66,7 @@ $fecha     = (Get-Date).ToString('dd/MM/yyyy')
 $logo = [IO.File]::ReadAllText((Join-Path $dir 'img-logo.txt'), $utf8).Trim()
 $van  = [IO.File]::ReadAllText((Join-Path $dir 'img-van.txt'), $utf8).Trim()
 
-$html = $plantilla.Replace('__UBIGEO__', $ubigeo).Replace('__AGENCIAS__', $agencias).Replace('__FECHA__', $fecha).Replace('__LOGO__', $logo).Replace('__VAN__', $van)
+$html = $plantilla.Replace('__UBIGEO__', $ubigeo).Replace('__AGENCIAS__', $agencias).Replace('__FECHA__', $fecha).Replace('src="../logo-luxury.webp"', ('src="' + $logo + '"')).Replace('href="../logo-luxury.webp"', ('href="' + $logo + '"')).Replace('src="../agencia-envio.png"', ('src="' + $van + '"'))
 [IO.File]::WriteAllText($out, $html, $utf8)
 Write-Output "Formulario regenerado: $out ($fecha)"
 
