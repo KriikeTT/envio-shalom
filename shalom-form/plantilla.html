@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datos de envío Shalom</title>
+<meta name="description" content="Completa los datos para enviar tu pedido por Shalom.">
+<style>
+  :root{
+    --bg:#f4f1ec; --card:#ffffff; --ink:#1d1b18; --muted:#6b655c;
+    --line:#e3ddd3; --accent:#1f7a4d; --accent-ink:#ffffff; --accent-soft:#e6f3ec;
+    --warn:#b4231a; --warn-soft:#fdecea; --gold:#b8892f; --field:#fbfaf7;
+    --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141311; --card:#1d1c19; --ink:#f1ede6; --muted:#a59e93;
+      --line:#34312b; --accent:#3fb37a; --accent-ink:#0b1a12; --accent-soft:#1b2e24;
+      --warn:#ff7b6e; --warn-soft:#3a1f1c; --gold:#d8ad5a; --field:#181714;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141311; --card:#1d1c19; --ink:#f1ede6; --muted:#a59e93;
+    --line:#34312b; --accent:#3fb37a; --accent-ink:#0b1a12; --accent-soft:#1b2e24;
+    --warn:#ff7b6e; --warn-soft:#3a1f1c; --gold:#d8ad5a; --field:#181714;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:560px;margin:0 auto;padding:24px 16px 48px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:24px 20px}
+  .hero{text-align:center;margin-bottom:20px}
+  .badge{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:var(--accent-soft);font-size:28px;margin-bottom:8px}
+  h1{font-size:1.5rem;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+  .lead{color:var(--muted);margin:0}
+  .order{display:inline-block;margin-top:10px;font-size:.85rem;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:2px 10px}
+  form{display:grid;gap:16px;margin-top:8px}
+  .field{display:grid;gap:6px}
+  label{font-weight:600;font-size:.95rem}
+  label .opt{font-weight:400;color:var(--muted)}
+  input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--field);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s;appearance:none;-webkit-appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:38px}
+  select:disabled{opacity:.55}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .invalid input,.invalid select{border-color:var(--warn)}
+  .err{display:none;color:var(--warn);font-size:.85rem}
+  .invalid .err{display:block}
+  .hint{color:var(--muted);font-size:.85rem;margin:0}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:420px){.row{grid-template-columns:1fr}}
+  .group{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:12px}
+  .group-title{font-weight:600;font-size:.95rem;margin:0}
+  .links{display:flex;flex-wrap:wrap;gap:8px}
+  .link-btn{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;text-decoration:none;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:6px 12px;font-weight:600}
+  .link-btn:hover{background:var(--accent-soft)}
+  input.auto[readonly]{background:var(--accent-soft);border-style:dashed;cursor:default;font-weight:600}
+  .dni-status{font-size:.85rem;color:var(--muted);min-height:1.2em}
+  .dni-status.ok{color:var(--accent)}
+  .dni-status.warn{color:var(--gold)}
+  .ag-info{background:var(--field);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:.88rem;color:var(--muted)}
+  .ag-info strong{color:var(--ink);display:block;font-size:.92rem}
+  .ag-note{font-size:.85rem;color:var(--gold);margin:0}
+  .notice{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:.92rem}
+  .btn{width:100%;font:inherit;font-weight:700;border:0;border-radius:14px;padding:14px 16px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+  .btn:hover{filter:brightness(1.05)}
+  .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+  .btn-row{display:grid;gap:10px}
+  /* revisión */
+  .review{display:none}
+  .review.show{display:block}
+  dl{margin:0;display:grid;gap:10px}
+  dl div{display:grid;gap:2px;border-bottom:1px solid var(--line);padding-bottom:10px}
+  dt{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  dd{margin:0;font-weight:600;word-break:break-word}
+  .done{display:none;text-align:center}
+  .done.show{display:block}
+  .foot{text-align:center;color:var(--muted);font-size:.85rem;margin-top:16px}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+
+    <!-- PASO 1: FORMULARIO -->
+    <section id="step-form">
+      <div class="hero">
+        <div class="badge" aria-hidden="true">✅</div>
+        <h1>¡Pago confirmado, mi rey!</h1>
+        <p class="lead">Para enviar tu pedido por <strong>Shalom</strong>, completa estos datos.</p>
+        <span id="orderTag" class="order hidden"></span>
+      </div>
+
+      <form id="f" novalidate>
+        <div class="row">
+          <div class="field" data-f="dni">
+            <label for="dni">DNI de quien recibe</label>
+            <input id="dni" name="dni" inputmode="numeric" maxlength="8" placeholder="8 dígitos" autocomplete="off">
+            <span class="err">El DNI debe tener 8 dígitos.</span>
+          </div>
+          <div class="field" data-f="celular">
+            <label for="celular">Celular</label>
+            <input id="celular" name="celular" type="tel" inputmode="numeric" maxlength="9" autocomplete="tel-national" placeholder="9XXXXXXXX">
+            <span class="err">Ingresa un celular de 9 dígitos que empiece con 9.</span>
+          </div>
+        </div>
+
+        <div class="field" data-f="nombre">
+          <label for="nombre">Nombres y apellidos de quien recibe</label>
+          <input id="nombre" name="nombre" readonly tabindex="-1" class="auto" placeholder="Se completa al ingresar el DNI">
+          <span id="dniStatus" class="dni-status"></span>
+          <span class="err">Ingresa un DNI válido para completar el nombre.</span>
+        </div>
+
+        <div class="group">
+          <p class="group-title">📍 Destino</p>
+          <div class="field" data-f="departamento">
+            <label for="departamento">Departamento</label>
+            <select id="departamento" name="departamento"><option value="">Selecciona…</option></select>
+            <span class="err">Selecciona el departamento.</span>
+          </div>
+          <div class="field" data-f="provincia">
+            <label for="provincia">Provincia</label>
+            <select id="provincia" name="provincia" disabled><option value="">Primero elige departamento</option></select>
+            <span class="err">Selecciona la provincia.</span>
+          </div>
+          <div class="field" data-f="distrito">
+            <label for="distrito">Distrito</label>
+            <select id="distrito" name="distrito" disabled><option value="">Primero elige provincia</option></select>
+            <span class="err">Selecciona el distrito.</span>
+          </div>
+        </div>
+
+        <div class="group">
+          <p class="group-title">🏬 Agencia Shalom</p>
+          <p class="hint">Al elegir tu distrito te mostramos las agencias Shalom disponibles. Elige la que te quede más cerca.</p>
+          <div class="field" data-f="agencia">
+            <label for="agencia">Agencia Shalom elegida</label>
+            <select id="agencia" name="agencia" disabled><option value="">Primero elige tu distrito</option></select>
+            <span class="err">Selecciona la agencia Shalom donde recogerás tu pedido.</span>
+          </div>
+          <div id="agInfo" class="ag-info hidden"></div>
+          <div class="field hidden" data-f="agenciaOtra" id="otraWrap">
+            <label for="agenciaOtra">Escribe la agencia</label>
+            <input id="agenciaOtra" name="agenciaOtra" placeholder="Nombre o dirección de la agencia">
+            <span class="err">Indica el nombre o dirección de la agencia.</span>
+          </div>
+        </div>
+
+        <div class="notice">Por favor, revisa bien los datos para evitar demoras 📦🚛</div>
+
+        <button class="btn" type="submit">Revisar mis datos</button>
+      </form>
+    </section>
+
+    <!-- PASO 2: REVISIÓN -->
+    <section id="step-review" class="review">
+      <div class="hero">
+        <div class="badge" aria-hidden="true">📦</div>
+        <h1>Revisa tus datos</h1>
+        <p class="lead">Confirma que todo esté correcto antes de enviarlo.</p>
+      </div>
+      <dl id="summary"></dl>
+      <div class="btn-row" style="margin-top:20px">
+        <button class="btn" id="sendWa" type="button">Enviar por WhatsApp</button>
+        <button class="btn ghost" id="copy" type="button">Copiar datos</button>
+        <button class="btn ghost" id="edit" type="button">✏️ Corregir datos</button>
+      </div>
+    </section>
+
+    <!-- PASO 3: LISTO -->
+    <section id="step-done" class="done">
+      <div class="badge" aria-hidden="true">🚛</div>
+      <h1>¡Gracias!</h1>
+      <p class="lead">Recibimos tus datos. Te avisaremos cuando tu pedido salga por Shalom.</p>
+      <div class="btn-row" style="margin-top:20px">
+        <button class="btn ghost" id="back" type="button">Volver a ver mis datos</button>
+      </div>
+    </section>
+  </div>
+  <p class="foot">Tus datos solo se usan para el envío de tu pedido.<br>Lista de agencias Shalom actualizada el __FECHA__.</p>
+</div>
+
+<script>
+/* ===== CONFIGURACIÓN ===== */
+const WHATSAPP_NEGOCIO = "51944227767"; // número del negocio (51 + 9 dígitos)
+
+/* Consulta de DNI (RENIEC) para autocompletar el nombre.
+   proxy: URL del intermediario (Cloudflare Worker, ver dni-proxy-worker.js). El token de
+   Decolecta vive en el intermediario, NUNCA en esta página.
+   Si proxy está vacío o el servicio falla, el cliente puede escribir su nombre a mano. */
+const DNI_API = { proxy: "https://dni-luxury.marlon-pariona.workers.dev" };
+
+/* Ubigeo: Departamento -> Provincia -> [Distritos] */
+const UBIGEO = __UBIGEO__;
+
+/* Agencias Shalom habilitadas como destino (Shalom Pro, actualizado __FECHA__):
+   [departamento, provincia, distrito, nombre, dirección, horario] */
+const AGENCIAS = __AGENCIAS__;
+
+/* Nombres que Shalom escribe distinto al ubigeo: "DEP|PROV|DIST" normalizado -> [prov, dist] */
+const ALIAS = {
+  "LIMA|LIMA|ATEVITARTE": ["LIMA", "ATE"],
+  "LIMA|LIMA|CERCADOLIMA": ["LIMA", "CERCADODELIMA"],
+  "LIMA|CANETE|SANVICENTEDECANET": ["CANETE", "SANVICENTEDECANETE"],
+  "TUMBES|CONTRALMIRANTEVILLA|ZORRITOS": ["CONTRALMIRANTEVILLAR", "ZORRITOS"],
+  "JUNIN|CHANCHAMAYO|BAJOPICHANAQUI": ["CHANCHAMAYO", "PICHANAQUI"],
+  "JUNIN|CHANCHAMAYO|LAMERCED": ["CHANCHAMAYO", "CHANCHAMAYO"],
+  "PIURA|PIURA|26DEOCTUBRE": ["PIURA", "VEINTISEISDEOCTUBRE"],
+  "TACNA|TACNA|CORONELGREGORIOALBARRACINLANCHIPA": ["TACNA", "CORGREGORIOALBARRACIN"],
+  "UCAYALI|PADREABAD|AGUAYTIA": ["PADREABAD", "PADREABAD"],
+  "HUANUCO|LEONCIOPRADO|JOSECRESPOYCASTIL": ["LEONCIOPRADO", "JOSECRESPOYCASTILLO"],
+  "LORETO|MAYNAS|IQUITOSSANJUANBAUTISTA": ["MAYNAS", "SANJUANBAUTISTA"],
+  "CUSCO|ESPINAR|YAURIESPINAR": ["ESPINAR", "ESPINAR"],
+  "LIMA|OYON|CHURIN": ["OYON", "PACHANGARA"],
+};
+
+(function(){
+  // Callao es una provincia constitucional: se lista como departamento propio
+  if (UBIGEO.Lima && UBIGEO.Lima.Callao) {
+    UBIGEO.Callao = { Callao: UBIGEO.Lima.Callao };
+    delete UBIGEO.Lima.Callao;
+    if (!UBIGEO.Callao.Callao.includes("Mi Peru")) UBIGEO.Callao.Callao.push("Mi Peru");
+  }
+  // Distritos que faltan en la fuente
+  if (UBIGEO.Amazonas && UBIGEO.Amazonas.Bagua && !UBIGEO.Amazonas.Bagua.includes("Bagua")) UBIGEO.Amazonas.Bagua.push("Bagua");
+  if (UBIGEO.Piura && UBIGEO.Piura.Piura && !UBIGEO.Piura.Piura.includes("Veintiséis de Octubre")) UBIGEO.Piura.Piura.push("Veintiséis de Octubre");
+  for (const d in UBIGEO) for (const p in UBIGEO[d]) {
+    const v = UBIGEO[d][p]; UBIGEO[d][p] = Array.isArray(v) ? v : [v];
+  }
+})();
+
+const params = new URLSearchParams(location.search);
+const waNumber = (params.get("wa") || WHATSAPP_NEGOCIO).replace(/\D/g, "");
+const pedido = (params.get("pedido") || "").trim();
+if (pedido) { const t = document.getElementById("orderTag"); t.textContent = "Pedido #" + pedido; t.classList.remove("hidden"); }
+
+const $ = id => document.getElementById(id);
+const dep = $("departamento"), prov = $("provincia"), dist = $("distrito");
+const sortEs = a => a.slice().sort((x, y) => x.localeCompare(y, "es"));
+
+function fill(sel, items, placeholder) {
+  sel.innerHTML = "";
+  sel.add(new Option(placeholder, ""));
+  items.forEach(i => sel.add(new Option(i, i)));
+  sel.disabled = items.length === 0;
+}
+fill(dep, sortEs(Object.keys(UBIGEO)), "Selecciona…");
+dep.addEventListener("change", () => {
+  fill(prov, dep.value ? sortEs(Object.keys(UBIGEO[dep.value])) : [], dep.value ? "Selecciona…" : "Primero elige departamento");
+  fill(dist, [], "Primero elige provincia");
+});
+prov.addEventListener("change", () => {
+  fill(dist, prov.value ? sortEs(UBIGEO[dep.value][prov.value]) : [], prov.value ? "Selecciona…" : "Primero elige provincia");
+  fillAgencias();
+});
+dep.addEventListener("change", () => fillAgencias());
+dist.addEventListener("change", () => fillAgencias());
+
+/* ===== Agencias Shalom ===== */
+const N = s => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+const title = s => s.toLowerCase().replace(/(^|[\s\/(.-])([a-záéíóúñü])/g, (m, a, b) => a + b.toUpperCase());
+const AG = AGENCIAS.map(([d, p, di, nombre, dir], i) => {
+  const k = N(d) + "|" + N(p) + "|" + N(di);
+  const a = ALIAS[k];
+  return { i, d: N(d), p: a ? a[0] : N(p), di: a ? a[1] : N(di), nombre: title(nombre), dir, distShalom: title(di) };
+});
+const ag = $("agencia"), agInfo = $("agInfo"), otraWrap = $("otraWrap");
+const OTRA = "__otra";
+
+function addGroup(label, list) {
+  if (!list.length) return;
+  const g = document.createElement("optgroup"); g.label = label;
+  list.sort((a, b) => a.nombre.localeCompare(b.nombre, "es"))
+      .forEach(a => g.append(new Option(`${a.nombre} — ${a.distShalom}`, String(a.i))));
+  ag.append(g);
+}
+function fillAgencias() {
+  ag.innerHTML = ""; agInfo.classList.add("hidden"); otraWrap.classList.add("hidden");
+  if (!dist.value) { ag.add(new Option(dep.value && prov.value ? "Primero elige tu distrito" : "Primero elige tu distrito", "")); ag.disabled = true; return; }
+  const D = N(dep.value), P = N(prov.value), DI = N(dist.value);
+  const enDist = AG.filter(a => a.d === D && a.p === P && a.di === DI);
+  const enProv = AG.filter(a => a.d === D && a.p === P && a.di !== DI);
+  const enDep = enDist.length || enProv.length ? [] : AG.filter(a => a.d === D);
+  const total = enDist.length + enProv.length + enDep.length;
+  ag.add(new Option(total ? `Selecciona una agencia (${total} disponibles)…` : "No encontramos agencias cerca", ""));
+  addGroup(`📍 En ${dist.value}`, enDist);
+  addGroup(`Otras agencias en la provincia de ${prov.value}`, enProv);
+  addGroup(`No hay agencias en tu provincia · Agencias en ${dep.value}`, enDep);
+  ag.add(new Option("✏️ Otra agencia (escribirla)", OTRA));
+  ag.disabled = false;
+  if (!enDist.length) {
+    agInfo.innerHTML = `<p class="ag-note">No hay agencia Shalom en ${esc(dist.value)}. Te mostramos las más cercanas.</p>`;
+    agInfo.classList.remove("hidden");
+  }
+}
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+ag.addEventListener("change", () => {
+  otraWrap.classList.toggle("hidden", ag.value !== OTRA);
+  if (ag.value && ag.value !== OTRA) {
+    const a = AGENCIAS[+ag.value];
+    agInfo.innerHTML = `<strong>🏬 ${esc(title(a[3]))}</strong>${esc(a[4])}` + (a[5] ? `<br>🕘 ${esc(a[5])}` : "");
+    agInfo.classList.remove("hidden");
+  } else if (ag.value === OTRA) { agInfo.classList.add("hidden"); $("agenciaOtra").focus(); }
+});
+function agenciaTexto() {
+  if (ag.value === OTRA) return $("agenciaOtra").value.trim();
+  if (!ag.value) return "";
+  const a = AGENCIAS[+ag.value];
+  return `${title(a[3])} (${a[0]} / ${a[1]} / ${a[2]}) – ${a[4]}`;
+}
+
+// Solo dígitos en DNI y celular
+["dni", "celular"].forEach(id => $(id).addEventListener("input", e => { e.target.value = e.target.value.replace(/\D/g, ""); }));
+
+/* ===== Autocompletar nombre por DNI ===== */
+const nombreEl = $("nombre"), dniStatus = $("dniStatus");
+let dniConsultado = "", dniSeq = 0;
+function estadoDni(texto, cls) { dniStatus.textContent = texto; dniStatus.className = "dni-status" + (cls ? " " + cls : ""); }
+function nombreManual(on) {
+  nombreEl.readOnly = !on; nombreEl.tabIndex = on ? 0 : -1;
+  nombreEl.classList.toggle("auto", !on);
+  nombreEl.placeholder = on ? "Escribe nombres y apellidos" : "Se completa al ingresar el DNI";
+}
+// Acepta las distintas formas de respuesta de los proveedores
+function nombreDeRespuesta(j) {
+  const d = (j && (j.data || j.result || j)) || {};
+  const nom = d.nombres || d.first_name || d.nombre || "";
+  const ap = [d.apellidoPaterno || d.apellido_paterno || d.first_last_name || "",
+              d.apellidoMaterno || d.apellido_materno || d.second_last_name || ""].join(" ").trim();
+  const completo = (nom && ap) ? `${nom} ${ap}` : (d.nombre_completo || d.full_name || d.nombreCompleto || "");
+  return completo.replace(/\s+/g, " ").trim();
+}
+async function consultarDni(dni) {
+  if (!DNI_API.proxy) throw new Error("sin-proxy");
+  const r = await fetch(DNI_API.proxy.replace(/\/$/, "") + "/?dni=" + dni, { headers: { "Accept": "application/json" } });
+  if (r.status === 404 || r.status === 400) return null;
+  if (!r.ok) throw new Error("http-" + r.status);
+  const j = await r.json();
+  if (j && j.ok === false) return null;
+  return j.nombre || nombreDeRespuesta(j) || null;
+}
+const tituloNombre = s => s.toLowerCase().replace(/(^|\s)(\p{L})/gu, (m, a, b) => a + b.toUpperCase());
+$("dni").addEventListener("input", async () => {
+  const dni = $("dni").value;
+  if (dni.length < 8) {
+    if (dniConsultado) { dniConsultado = ""; nombreEl.value = ""; nombreManual(false); }
+    estadoDni(""); return;
+  }
+  if (dni === dniConsultado) return;
+  dniConsultado = dni; const seq = ++dniSeq;
+  nombreManual(false); nombreEl.value = ""; estadoDni("Buscando nombre…");
+  try {
+    const nombre = await consultarDni(dni);
+    if (seq !== dniSeq) return;
+    if (nombre) {
+      nombreEl.value = tituloNombre(nombre);
+      $("nombre").closest(".field").classList.remove("invalid");
+      estadoDni("✔ Nombre obtenido de RENIEC", "ok");
+    } else {
+      estadoDni("No encontramos ese DNI. Revisa que esté bien escrito.", "warn");
+    }
+  } catch (e) {
+    if (seq !== dniSeq) return;
+    nombreManual(true);
+    estadoDni("No pudimos consultar el DNI en este momento. Escribe el nombre completo.", "warn");
+  }
+});
+
+const rules = {
+  dni: v => /^\d{8}$/.test(v),
+  celular: v => /^9\d{8}$/.test(v),
+  nombre: v => v.trim().split(/\s+/).filter(Boolean).length >= 2,
+  departamento: v => !!v, provincia: v => !!v, distrito: v => !!v,
+  agencia: v => !!v,
+  agenciaOtra: v => ag.value !== OTRA || v.trim().length >= 3,
+};
+function validate() {
+  let first = null;
+  for (const k in rules) {
+    const ok = rules[k]($(k).value);
+    $(k).closest(".field").classList.toggle("invalid", !ok);
+    if (!ok && !first) first = $(k);
+  }
+  if (first) first.focus();
+  return !first;
+}
+Object.keys(rules).forEach(k => $(k).addEventListener($(k).tagName === "SELECT" ? "change" : "input", () => {
+  const f = $(k).closest(".field");
+  if (f.classList.contains("invalid") && rules[k]($(k).value)) f.classList.remove("invalid");
+}));
+
+function data() {
+  return {
+    "Recibe": $("nombre").value.trim().replace(/\s+/g, " "),
+    "DNI": $("dni").value,
+    "Celular": $("celular").value,
+    "Destino": `${dist.value}, ${prov.value}, ${dep.value}`,
+    "Agencia Shalom": agenciaTexto(),
+  };
+}
+function message() {
+  const d = data();
+  let m = "📦 *Datos de envío Shalom*" + (pedido ? ` – Pedido #${pedido}` : "") + "\n\n";
+  m += `👤 *Recibe:* ${d["Recibe"]}\n🪪 *DNI:* ${d["DNI"]}\n📱 *Celular:* ${d["Celular"]}\n`;
+  m += `📍 *Departamento:* ${dep.value}\n📍 *Provincia:* ${prov.value}\n📍 *Distrito:* ${dist.value}\n`;
+  m += `🏬 *Agencia Shalom:* ${d["Agencia Shalom"]}`;
+  return m;
+}
+function show(step) {
+  $("step-form").style.display = step === "form" ? "" : "none";
+  $("step-review").classList.toggle("show", step === "review");
+  $("step-done").classList.toggle("show", step === "done");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+$("f").addEventListener("submit", e => {
+  e.preventDefault();
+  if (!validate()) return;
+  const s = $("summary"); s.innerHTML = "";
+  for (const [k, v] of Object.entries(data())) {
+    const div = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd");
+    dt.textContent = k; dd.textContent = v; div.append(dt, dd); s.append(div);
+  }
+  show("review");
+});
+$("edit").addEventListener("click", () => show("form"));
+$("back").addEventListener("click", () => show("review"));
+$("sendWa").addEventListener("click", () => {
+  window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message())}`, "_blank", "noopener");
+  show("done");
+});
+$("copy").addEventListener("click", async () => {
+  const b = $("copy"), txt = message().replace(/\*/g, "");
+  try { await navigator.clipboard.writeText(txt); }
+  catch { const t = document.createElement("textarea"); t.value = txt; document.body.append(t); t.select(); document.execCommand("copy"); t.remove(); }
+  b.textContent = "✔ Copiado"; setTimeout(() => b.textContent = "Copiar datos", 1800);
+});
+</script>
+</body>
+</html>

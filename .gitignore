@@ -1,0 +1,7 @@
+# Solo se versiona el formulario de envío Shalom; el resto de la carpeta (flyers, PDFs) queda fuera.
+/*
+!/.gitignore
+!/README.md
+!/index.html
+!/formulario-envio-shalom.html
+!/shalom-form/
