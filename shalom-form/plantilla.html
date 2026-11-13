@@ -70,9 +70,17 @@
   .dni-status{font-size:.85rem;color:var(--muted);min-height:1.2em}
   .dni-status.ok{color:var(--accent)}
   .dni-status.warn{color:var(--gold)}
-  .ag-head{display:flex;align-items:center;gap:12px}
-  .ag-head img{width:120px;height:auto;border-radius:10px;flex:none}
-  .ag-head .group-title{font-size:1.05rem}
+  /* Botón "Agencia SHALOM" con el rojo y la letra de Shalom */
+  .ag-head{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0;cursor:pointer;text-align:left;
+    background:#e42326;color:#fff;border-radius:14px;padding:8px 8px 8px 18px;font:inherit;
+    box-shadow:0 4px 0 #a3161a,0 8px 18px rgba(228,35,38,.25);transition:transform .08s,box-shadow .08s}
+  .ag-head:hover{filter:brightness(1.05)}
+  .ag-head:active{transform:translateY(3px);box-shadow:0 1px 0 #a3161a,0 3px 8px rgba(228,35,38,.25)}
+  .ag-head:focus-visible{outline:3px solid var(--brand-blue);outline-offset:2px}
+  .ag-word{display:flex;flex-direction:column;line-height:1}
+  .ag-word small{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.9;margin-bottom:4px}
+  .ag-word b{font-family:"Arial Black","Segoe UI Black","Helvetica Neue",Arial,sans-serif;font-weight:900;font-style:italic;font-size:1.65rem;letter-spacing:.04em;transform:skewX(-8deg);display:inline-block}
+  .ag-head img{width:112px;height:auto;border-radius:10px;flex:none;background:#e4f5fc}
   .ag-info{background:var(--field);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:.88rem;color:var(--muted)}
   .ag-info strong{color:var(--ink);display:block;font-size:.92rem}
   .ag-note{font-size:.85rem;color:var(--gold);margin:0}
@@ -152,10 +160,10 @@
         </div>
 
         <div class="group">
-          <div class="ag-head">
-            <img src="__VAN__" alt="" width="150" height="83">
-            <p class="group-title">Agencia Shalom</p>
-          </div>
+          <button type="button" class="ag-head" id="agBtn" aria-label="Elegir agencia Shalom">
+            <span class="ag-word"><small>Agencia</small><b>SHALOM</b></span>
+            <img src="__VAN__" alt="" width="112" height="62">
+          </button>
           <p class="hint">Al elegir tu distrito te mostramos las agencias Shalom disponibles. Elige la que te quede más cerca.</p>
           <div class="field" data-f="agencia">
             <label for="agencia">Agencia Shalom elegida</label>
@@ -320,6 +328,22 @@ function fillAgencias() {
   }
 }
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Botón "Agencia SHALOM": abre la lista de agencias o, si falta el destino, lleva al primer dato pendiente
+$("agBtn").addEventListener("click", () => {
+  const pendiente = [dep, prov, dist].find(s => !s.value);
+  const target = pendiente || ag;
+  target.scrollIntoView({ behavior: "smooth", block: "center" });
+  target.focus({ preventScroll: true });
+  if (pendiente) {
+    estadoAg("Primero elige tu departamento, provincia y distrito.");
+  } else {
+    try { ag.showPicker && ag.showPicker(); } catch (e) {}
+  }
+});
+function estadoAg(texto) {
+  agInfo.innerHTML = `<p class="ag-note">${esc(texto)}</p>`;
+  agInfo.classList.remove("hidden");
+}
 ag.addEventListener("change", () => {
   otraWrap.classList.toggle("hidden", ag.value !== OTRA);
   if (ag.value && ag.value !== OTRA) {
