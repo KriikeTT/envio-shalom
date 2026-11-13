@@ -62,7 +62,11 @@ $ubigeo    = [IO.File]::ReadAllText((Join-Path $dir 'ubigeo.json'), $utf8)
 $agencias  = [IO.File]::ReadAllText($agPath, $utf8).Replace('</', '<\/')
 $fecha     = (Get-Date).ToString('dd/MM/yyyy')
 
-$html = $plantilla.Replace('__UBIGEO__', $ubigeo).Replace('__AGENCIAS__', $agencias).Replace('__FECHA__', $fecha)
+# Imágenes incrustadas (data URI) para que se vean en cualquier lugar, incluso abriendo el archivo local
+$logo = [IO.File]::ReadAllText((Join-Path $dir 'img-logo.txt'), $utf8).Trim()
+$van  = [IO.File]::ReadAllText((Join-Path $dir 'img-van.txt'), $utf8).Trim()
+
+$html = $plantilla.Replace('__UBIGEO__', $ubigeo).Replace('__AGENCIAS__', $agencias).Replace('__FECHA__', $fecha).Replace('__LOGO__', $logo).Replace('__VAN__', $van)
 [IO.File]::WriteAllText($out, $html, $utf8)
 Write-Output "Formulario regenerado: $out ($fecha)"
 
