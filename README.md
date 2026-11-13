@@ -12,4 +12,6 @@ celular, destino y agencia Shalom. Los datos llegan por WhatsApp al negocio.
 - `shalom-form/extraer-agencias.js` – extrae la lista de agencias desde Shalom Pro (con sesión iniciada).
 - `shalom-form/dni-proxy-worker.js` – intermediario en Cloudflare para consultar DNI (el token vive en Cloudflare, no aquí).
 
-Link para clientes (opcional `?pedido=123`): la URL de GitHub Pages del repositorio.
+Link para clientes (opcional `?pedido=123`): https://envios.luxuryskincars.com
+
+- `CNAME` – dominio propio de GitHub Pages (no borrar).
